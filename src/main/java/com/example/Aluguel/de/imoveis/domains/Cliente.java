@@ -13,6 +13,16 @@ public class Cliente {
     private String name;
     private String email;
     private String cpf;
+    public Cliente(){
+
+    };
+
+    public Cliente(Long id, String name, String email, String cpf) {
+        Id = id;
+        this.name = name;
+        this.email = email;
+        this.cpf = cpf;
+    }
 
     @Override
     public boolean equals(Object o) {

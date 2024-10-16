@@ -16,6 +16,16 @@ public class Imovel {
     @JoinColumn(name = "proprietario_id")
     private Proprietario proprietario;
 
+    public Imovel(){
+    };
+
+    public Imovel(Long id, String descricao, String fotos, Proprietario proprietario) {
+        Id = id;
+        this.descricao = descricao;
+        this.fotos = fotos;
+        this.proprietario = proprietario;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

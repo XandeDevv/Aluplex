@@ -17,6 +17,16 @@ public class Proprietario {
     @OneToMany(mappedBy = "proprietario")
     private List<Imovel> imoveis= new ArrayList<>();
 
+    public Proprietario(){
+    };
+
+    public Proprietario(Long id, String name, String email, String cpf) {
+        Id = id;
+        this.name = name;
+        this.email = email;
+        this.cpf = cpf;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
