@@ -13,7 +13,7 @@ public class ProprietarioDto {
     private String name;
     private String email;
     private String cpf;
-    private List<Imovel> imoveis= new ArrayList<>();
+    private List<ImovelDto> imoveis= new ArrayList<ImovelDto>();
     public ProprietarioDto(){
     };
     public ProprietarioDto(Proprietario proprietario){
@@ -26,7 +26,7 @@ public class ProprietarioDto {
         this.email = email;
         this.cpf = cpf;
     }
-    public ProductDTO(Proprietario entity, Set<Imovel> imoveis) {
+    public ProprietarioDto(Proprietario entity, Set<Imovel> imoveis) {
         this(entity);
         imoveis.forEach(imo -> this.imoveis.add(new ImovelDto(imo)));
     }
