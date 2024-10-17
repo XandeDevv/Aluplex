@@ -1,0 +1,1 @@
+INSERT INTO tb_proprietario (name,email,cpf) VALUES ('Alexandre','xande@gmail.com','023-356-082.54');

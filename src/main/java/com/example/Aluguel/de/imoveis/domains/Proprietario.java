@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Objects;
 
 @Entity
-@Table(name = "proprietarios")
+@Table(name = "tb_proprietario")
 public class Proprietario {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long Id;
