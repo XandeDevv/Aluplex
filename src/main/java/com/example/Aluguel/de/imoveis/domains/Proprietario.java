@@ -14,7 +14,7 @@ public class Proprietario {
     private String name;
     private String email;
     private String cpf;
-    @OneToMany(mappedBy = "proprietario")
+    @OneToMany(mappedBy = "proprietario",cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<Imovel> imoveis= new ArrayList<>();
 
     public Proprietario(){

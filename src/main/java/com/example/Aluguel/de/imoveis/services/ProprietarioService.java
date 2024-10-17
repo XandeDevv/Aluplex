@@ -3,6 +3,7 @@ package com.example.Aluguel.de.imoveis.services;
 import com.example.Aluguel.de.imoveis.domains.Proprietario;
 import com.example.Aluguel.de.imoveis.dtos.ProprietarioDto;
 import com.example.Aluguel.de.imoveis.repositories.ProprietarioRepository;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -14,8 +15,29 @@ public class ProprietarioService {
     @Autowired
     private ProprietarioRepository proprietarioRepository;
     @Transactional
-    public Page<ProprietarioDto> findAll(Pageable pageable){
-        Page<Proprietario> list= proprietarioRepository.findAll(pageable);
-        return list.map(x -> new ProprietarioDto(x));
+    public Page<ProprietarioDto> findAll(Pageable pageable) {
+        Page<Proprietario> page = proprietarioRepository.findAllWithImoveis(pageable);
+        return page.map(x -> new ProprietarioDto(x));
+    }
+
+    public ProprietarioDto findById(Long id) {
+        Proprietario obj= proprietarioRepository.getReferenceById(id);
+        ProprietarioDto dto= new ProprietarioDto();
+        BeanUtils.copyProperties(obj,dto);
+        return dto;
+    }
+
+    public ProprietarioDto insert(ProprietarioDto dto) {
+        Proprietario obj = new Proprietario();
+        BeanUtils.copyProperties(dto,obj);
+        obj= proprietarioRepository.save(obj);
+        return new ProprietarioDto(obj);
+    }
+
+    public ProprietarioDto update(Long id, ProprietarioDto dto) {
+        Proprietario obj= proprietarioRepository.getReferenceById(id);
+        BeanUtils.copyProperties(dto,obj,"id");
+        obj=proprietarioRepository.save(obj);
+        return new ProprietarioDto(obj);
     }
 }
