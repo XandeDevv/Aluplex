@@ -40,4 +40,8 @@ public class ProprietarioService {
         obj=proprietarioRepository.save(obj);
         return new ProprietarioDto(obj);
     }
+
+    public void delete(Long id) {
+        proprietarioRepository.deleteById(id);
+    }
 }

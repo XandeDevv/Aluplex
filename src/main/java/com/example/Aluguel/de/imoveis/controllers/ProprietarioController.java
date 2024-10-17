@@ -40,4 +40,9 @@ public class ProprietarioController {
         dto= proprietarioService.update(id,dto);
         return ResponseEntity.ok().body(dto);
     }
+    @DeleteMapping(value = "/{id}")
+    public ResponseEntity<Void> delete(@PathVariable Long id){
+        proprietarioService.delete(id);
+        return ResponseEntity.noContent().build();
+    }
 }
