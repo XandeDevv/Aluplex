@@ -7,6 +7,7 @@ import org.springframework.beans.BeanUtils;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 public class ProprietarioDto {
     private Long Id;
@@ -16,7 +17,8 @@ public class ProprietarioDto {
     private List<ImovelDto> imoveis= new ArrayList<ImovelDto>();
     public ProprietarioDto(){
     };
-    public ProprietarioDto(Proprietario proprietario){
+    public ProprietarioDto(Proprietario proprietario) {
+
         BeanUtils.copyProperties(proprietario,this);
     }
 

@@ -19,21 +19,19 @@ public class ProprietarioService {
         Page<Proprietario> page = proprietarioRepository.findAllWithImoveis(pageable);
         return page.map(x -> new ProprietarioDto(x));
     }
-
+    @Transactional
     public ProprietarioDto findById(Long id) {
         Proprietario obj= proprietarioRepository.getReferenceById(id);
-        ProprietarioDto dto= new ProprietarioDto();
-        BeanUtils.copyProperties(obj,dto);
-        return dto;
+        return  new ProprietarioDto(obj);
     }
-
+    @Transactional
     public ProprietarioDto insert(ProprietarioDto dto) {
         Proprietario obj = new Proprietario();
         BeanUtils.copyProperties(dto,obj);
         obj= proprietarioRepository.save(obj);
         return new ProprietarioDto(obj);
     }
-
+    @Transactional
     public ProprietarioDto update(Long id, ProprietarioDto dto) {
         Proprietario obj= proprietarioRepository.getReferenceById(id);
         BeanUtils.copyProperties(dto,obj,"id");
