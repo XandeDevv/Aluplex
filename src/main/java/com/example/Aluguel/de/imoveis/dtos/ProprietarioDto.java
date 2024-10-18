@@ -17,16 +17,13 @@ public class ProprietarioDto {
     private List<ImovelDto> imoveis= new ArrayList<ImovelDto>();
     public ProprietarioDto(){
     };
+
+
     public ProprietarioDto(Proprietario proprietario) {
-
-        BeanUtils.copyProperties(proprietario,this);
-    }
-
-    public ProprietarioDto(Long id, String name, String email, String cpf) {
-        Id = id;
-        this.name = name;
-        this.email = email;
-        this.cpf = cpf;
+        this.Id = proprietario.getId();
+        this.name = proprietario.getName();
+        this.email = proprietario.getEmail();
+        this.cpf = proprietario.getCpf();
     }
     public ProprietarioDto(Proprietario entity, Set<Imovel> imoveis) {
         this(entity);

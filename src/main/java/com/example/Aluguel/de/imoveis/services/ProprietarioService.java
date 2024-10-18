@@ -9,7 +9,6 @@ import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
-import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -37,8 +36,8 @@ public class ProprietarioService {
 
     @Transactional
     public ProprietarioDto insert(ProprietarioDto dto) {
-        Proprietario obj = new Proprietario();
-        BeanUtils.copyProperties(dto, obj);
+        Proprietario obj= new Proprietario();
+        obj = dtoToEntity(dto,obj);
         obj = proprietarioRepository.save(obj);
         return new ProprietarioDto(obj);
     }
@@ -47,7 +46,7 @@ public class ProprietarioService {
     public ProprietarioDto update(Long id, ProprietarioDto dto) {
         try {
             Proprietario obj = proprietarioRepository.getReferenceById(id);
-            BeanUtils.copyProperties(dto, obj, "id");
+            obj= dtoToEntity(dto,obj);
             obj = proprietarioRepository.save(obj);
             return new ProprietarioDto(obj);
         } catch (EntityNotFoundException e) {
@@ -65,5 +64,11 @@ public class ProprietarioService {
         } catch (DataIntegrityViolationException e) {
             throw new DataBaseException("Cannot delete customer due to existing references");
         }
+    }
+    public Proprietario dtoToEntity(ProprietarioDto dto,Proprietario obj) {
+        obj.setName(dto.getName());
+        obj.setEmail(dto.getEmail());
+        obj.setCpf(dto.getCpf());
+        return obj;
     }
 }
