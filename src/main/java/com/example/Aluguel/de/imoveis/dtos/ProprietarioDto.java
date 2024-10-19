@@ -2,6 +2,9 @@ package com.example.Aluguel.de.imoveis.dtos;
 
 import com.example.Aluguel.de.imoveis.domains.Imovel;
 import com.example.Aluguel.de.imoveis.domains.Proprietario;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+import org.hibernate.validator.constraints.br.CPF;
 import org.springframework.beans.BeanUtils;
 
 import java.util.ArrayList;
@@ -11,8 +14,11 @@ import java.util.stream.Collectors;
 
 public class ProprietarioDto {
     private Long Id;
+    @NotBlank(message = "required field")
     private String name;
+    @Email(message = "invalid email")
     private String email;
+    @CPF(message = "send a valid cpf")
     private String cpf;
     private List<ImovelDto> imoveis= new ArrayList<ImovelDto>();
     public ProprietarioDto(){

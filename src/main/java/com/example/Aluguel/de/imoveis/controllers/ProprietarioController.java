@@ -2,6 +2,7 @@ package com.example.Aluguel.de.imoveis.controllers;
 
 import com.example.Aluguel.de.imoveis.dtos.ProprietarioDto;
 import com.example.Aluguel.de.imoveis.services.ProprietarioService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -27,7 +28,7 @@ public class ProprietarioController {
         return ResponseEntity.ok().body(dto);
     }
     @PostMapping
-    public ResponseEntity<ProprietarioDto> insert(@RequestBody ProprietarioDto dto){
+    public ResponseEntity<ProprietarioDto> insert(@RequestBody @Valid ProprietarioDto dto){
         dto= proprietarioService.insert(dto);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
                 .path("/{id}")
@@ -36,7 +37,7 @@ public class ProprietarioController {
         return ResponseEntity.created(uri).body(dto);
     }
     @PutMapping(value = "/{id}")
-    public ResponseEntity<ProprietarioDto> update(@PathVariable Long id,@RequestBody ProprietarioDto dto){
+    public ResponseEntity<ProprietarioDto> update(@PathVariable Long id,@RequestBody @Valid ProprietarioDto dto){
         dto= proprietarioService.update(id,dto);
         return ResponseEntity.ok().body(dto);
     }
