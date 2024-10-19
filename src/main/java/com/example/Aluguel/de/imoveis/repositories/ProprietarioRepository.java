@@ -14,4 +14,5 @@ import java.util.List;
 public interface ProprietarioRepository extends JpaRepository<Proprietario,Long> {
     @Query("SELECT obj FROM Proprietario obj LEFT JOIN FETCH obj.imoveis")
     Page<Proprietario> findAllWithImoveis(Pageable pageable);
+    Proprietario findByEmail(String email);
 }
