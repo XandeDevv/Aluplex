@@ -6,18 +6,15 @@ import java.util.List;
 
 import com.example.Aluguel.de.imoveis.controllers.exceptions.FieldMessage;
 import com.example.Aluguel.de.imoveis.domains.Proprietario;
+import com.example.Aluguel.de.imoveis.dtos.ProprietarioInsertDto;
 import com.example.Aluguel.de.imoveis.repositories.ProprietarioRepository;
-import com.lojaroupas.loja.controllers.exceptions.FieldMessage;
-import com.lojaroupas.loja.domains.User;
-import com.lojaroupas.loja.dtos.UserInsertDto;
-import com.lojaroupas.loja.repositories.UserRepository;
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
 import org.springframework.beans.factory.annotation.Autowired;
 
 
 
-public class UserInsertValidator implements ConstraintValidator<UserInsertValid, UserInsertDto> {
+public class UserInsertValidator implements ConstraintValidator<UserInsertValid, ProprietarioInsertDto> {
 
     @Autowired
     private ProprietarioRepository proprietarioRepository;
@@ -26,7 +23,7 @@ public class UserInsertValidator implements ConstraintValidator<UserInsertValid,
     }
 
     @Override
-    public boolean isValid(UserInsertDto dto, ConstraintValidatorContext context) {
+    public boolean isValid(ProprietarioInsertDto dto, ConstraintValidatorContext context) {
 
         List<FieldMessage> list = new ArrayList<>();
         Proprietario proprietario = proprietarioRepository.findByEmail(dto.getEmail());
