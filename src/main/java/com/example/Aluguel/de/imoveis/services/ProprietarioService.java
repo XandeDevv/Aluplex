@@ -2,6 +2,8 @@ package com.example.Aluguel.de.imoveis.services;
 
 import com.example.Aluguel.de.imoveis.domains.Proprietario;
 import com.example.Aluguel.de.imoveis.dtos.ProprietarioDto;
+import com.example.Aluguel.de.imoveis.dtos.ProprietarioInsertDto;
+import com.example.Aluguel.de.imoveis.dtos.ProprietarioUpdateDto;
 import com.example.Aluguel.de.imoveis.repositories.ProprietarioRepository;
 import com.example.Aluguel.de.imoveis.services.exceptions.ControllerNotFoundException;
 import com.example.Aluguel.de.imoveis.services.exceptions.DataBaseException;
@@ -35,7 +37,7 @@ public class ProprietarioService {
     }
 
     @Transactional
-    public ProprietarioDto insert(ProprietarioDto dto) {
+    public ProprietarioDto insert(ProprietarioInsertDto dto) {
         Proprietario obj= new Proprietario();
         obj = dtoToEntity(dto,obj);
         obj = proprietarioRepository.save(obj);
@@ -43,7 +45,7 @@ public class ProprietarioService {
     }
 
     @Transactional
-    public ProprietarioDto update(Long id, ProprietarioDto dto) {
+    public ProprietarioDto update(Long id, ProprietarioUpdateDto dto) {
         try {
             Proprietario obj = proprietarioRepository.getReferenceById(id);
             obj= dtoToEntity(dto,obj);

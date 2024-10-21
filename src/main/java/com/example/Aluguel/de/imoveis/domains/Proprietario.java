@@ -14,17 +14,19 @@ public class Proprietario {
     private String name;
     private String email;
     private String cpf;
+    private String password;
     @OneToMany(mappedBy = "proprietario",cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<Imovel> imoveis= new ArrayList<>();
 
     public Proprietario(){
     };
 
-    public Proprietario(Long id, String name, String email, String cpf) {
+    public Proprietario(Long id, String name, String email, String cpf,String password) {
         Id = id;
         this.name = name;
         this.email = email;
         this.cpf = cpf;
+        this.password=password;
     }
 
     @Override
@@ -41,6 +43,14 @@ public class Proprietario {
 
     public List<Imovel> getImoveis() {
         return imoveis;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public Long getId() {

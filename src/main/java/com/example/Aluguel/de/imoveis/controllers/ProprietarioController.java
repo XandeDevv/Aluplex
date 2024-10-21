@@ -1,6 +1,8 @@
 package com.example.Aluguel.de.imoveis.controllers;
 
 import com.example.Aluguel.de.imoveis.dtos.ProprietarioDto;
+import com.example.Aluguel.de.imoveis.dtos.ProprietarioInsertDto;
+import com.example.Aluguel.de.imoveis.dtos.ProprietarioUpdateDto;
 import com.example.Aluguel.de.imoveis.services.ProprietarioService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,18 +30,18 @@ public class ProprietarioController {
         return ResponseEntity.ok().body(dto);
     }
     @PostMapping
-    public ResponseEntity<ProprietarioDto> insert(@RequestBody @Valid ProprietarioDto dto){
-        dto= proprietarioService.insert(dto);
+    public ResponseEntity<ProprietarioDto> insert(@RequestBody @Valid ProprietarioInsertDto dto){
+        ProprietarioDto newDto= proprietarioService.insert(dto);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
                 .path("/{id}")
                 .buildAndExpand(dto.getId())
                 .toUri();
-        return ResponseEntity.created(uri).body(dto);
+        return ResponseEntity.created(uri).body(newDto);
     }
     @PutMapping(value = "/{id}")
-    public ResponseEntity<ProprietarioDto> update(@PathVariable Long id,@RequestBody @Valid ProprietarioDto dto){
-        dto= proprietarioService.update(id,dto);
-        return ResponseEntity.ok().body(dto);
+    public ResponseEntity<ProprietarioDto> update(@PathVariable Long id,@RequestBody @Valid ProprietarioUpdateDto dto){
+        ProprietarioDto newDto= proprietarioService.update(id,dto);
+        return ResponseEntity.ok().body(newDto);
     }
     @DeleteMapping(value = "/{id}")
     public ResponseEntity<Void> delete(@PathVariable Long id){
