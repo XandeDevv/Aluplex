@@ -4,6 +4,7 @@ package com.example.Aluguel.de.imoveis.controllers.exceptions;
 import com.example.Aluguel.de.imoveis.dtos.LoginRequest;
 import com.example.Aluguel.de.imoveis.dtos.LoginResponse;
 import com.example.Aluguel.de.imoveis.repositories.UserRepository;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;

@@ -9,7 +9,7 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface UserRepository extends JpaRepository<User,Long> {
-    @Query("SELECT obj FROM Proprietario obj LEFT JOIN FETCH obj.imoveis")
+    @Query("SELECT obj FROM User obj LEFT JOIN FETCH obj.imoveis")
     Page<User> findAllWithImoveis(Pageable pageable);
     User findByEmail(String email);
 
