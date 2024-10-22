@@ -1,27 +1,25 @@
 package com.example.Aluguel.de.imoveis.dtos;
 
 import com.example.Aluguel.de.imoveis.domains.Imovel;
-import com.example.Aluguel.de.imoveis.domains.Proprietario;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
+import com.example.Aluguel.de.imoveis.domains.User;
 import org.springframework.beans.BeanUtils;
 
 public class ImovelDto {
     private Long Id;
     private String descricao;
     private String fotos;
-    private Proprietario proprietario;
+    private User user;
     public ImovelDto(){
     };
     public ImovelDto(Imovel imovel){
         BeanUtils.copyProperties(imovel,this);
     }
 
-    public ImovelDto(Long id, String descricao, String fotos, Proprietario proprietario) {
+    public ImovelDto(Long id, String descricao, String fotos, User user) {
         Id = id;
         this.descricao = descricao;
         this.fotos = fotos;
-        this.proprietario = proprietario;
+        this.user = user;
     }
 
     public Long getId() {
@@ -48,11 +46,11 @@ public class ImovelDto {
         this.fotos = fotos;
     }
 
-    public Proprietario getProprietario() {
-        return proprietario;
+    public User getProprietario() {
+        return user;
     }
 
-    public void setProprietario(Proprietario proprietario) {
-        this.proprietario = proprietario;
+    public void setProprietario(User user) {
+        this.user = user;
     }
 }

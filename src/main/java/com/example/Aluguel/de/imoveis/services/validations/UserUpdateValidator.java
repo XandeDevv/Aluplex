@@ -1,9 +1,9 @@
 package com.example.Aluguel.de.imoveis.services.validations;
 
 import com.example.Aluguel.de.imoveis.controllers.exceptions.FieldMessage;
-import com.example.Aluguel.de.imoveis.domains.Proprietario;
-import com.example.Aluguel.de.imoveis.dtos.ProprietarioUpdateDto;
-import com.example.Aluguel.de.imoveis.repositories.ProprietarioRepository;
+import com.example.Aluguel.de.imoveis.domains.User;
+import com.example.Aluguel.de.imoveis.dtos.UserUpdateDto;
+import com.example.Aluguel.de.imoveis.repositories.UserRepository;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.ConstraintValidator;
@@ -16,26 +16,26 @@ import java.util.List;
 import java.util.Map;
 
 
-public class UserUpdateValidator implements ConstraintValidator<UserUpdateValid, ProprietarioUpdateDto> {
+public class UserUpdateValidator implements ConstraintValidator<UserUpdateValid, UserUpdateDto> {
 
     @Autowired
     private HttpServletRequest request;
     @Autowired
-    private ProprietarioRepository proprietarioRepository;
+    private UserRepository userRepository;
     @Override
     public void initialize(UserUpdateValid ann) {
     }
 
     @Override
-    public boolean isValid(ProprietarioUpdateDto dto, ConstraintValidatorContext context) {
+    public boolean isValid(UserUpdateDto dto, ConstraintValidatorContext context) {
         var uriVars = (Map<String, String>) request.getAttribute(HandlerMapping.URI_TEMPLATE_VARIABLES_ATTRIBUTE);
         long userId = Long.parseLong(uriVars.get("id"));
 
         List<FieldMessage> list = new ArrayList<>();
-        Proprietario proprietario = proprietarioRepository.findByEmail(dto.getEmail());
+        User user = userRepository.findByEmail(dto.getEmail());
 
         // Coloque aqui seus testes de validação, acrescentando objetos FieldMessage à lista
-        if (proprietario!=null && userId!=proprietario.getId()){
+        if (user !=null && userId!= user.getId()){
             list.add(new FieldMessage("email","email ja existe"));
         }
 

@@ -1,9 +1,9 @@
 package com.example.Aluguel.de.imoveis.controllers;
 
-import com.example.Aluguel.de.imoveis.dtos.ProprietarioDto;
-import com.example.Aluguel.de.imoveis.dtos.ProprietarioInsertDto;
-import com.example.Aluguel.de.imoveis.dtos.ProprietarioUpdateDto;
-import com.example.Aluguel.de.imoveis.services.ProprietarioService;
+import com.example.Aluguel.de.imoveis.dtos.UserDto;
+import com.example.Aluguel.de.imoveis.dtos.UserInsertDto;
+import com.example.Aluguel.de.imoveis.dtos.UserUpdateDto;
+import com.example.Aluguel.de.imoveis.services.UserService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -15,23 +15,23 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import java.net.URI;
 
 @RestController
-@RequestMapping(value = "/proprietario")
-public class ProprietarioController {
+@RequestMapping(value = "/user")
+public class UserController {
     @Autowired
-    private ProprietarioService proprietarioService;
+    private UserService userService;
     @GetMapping
-    public ResponseEntity<Page<ProprietarioDto>> findAll(Pageable pageable){
-        Page<ProprietarioDto> list= proprietarioService.findAll(pageable);
+    public ResponseEntity<Page<UserDto>> findAll(Pageable pageable){
+        Page<UserDto> list= userService.findAll(pageable);
         return ResponseEntity.ok().body(list);
     }
     @GetMapping(value = "/{id}")
-    public ResponseEntity<ProprietarioDto> findById(@PathVariable Long id){
-        ProprietarioDto dto= proprietarioService.findById(id);
+    public ResponseEntity<UserDto> findById(@PathVariable Long id){
+        UserDto dto= userService.findById(id);
         return ResponseEntity.ok().body(dto);
     }
     @PostMapping
-    public ResponseEntity<ProprietarioDto> insert(@RequestBody @Valid ProprietarioInsertDto dto){
-        ProprietarioDto newDto= proprietarioService.insert(dto);
+    public ResponseEntity<UserDto> insert(@RequestBody @Valid UserInsertDto dto){
+        UserDto newDto= userService.insert(dto);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
                 .path("/{id}")
                 .buildAndExpand(dto.getId())
@@ -39,13 +39,13 @@ public class ProprietarioController {
         return ResponseEntity.created(uri).body(newDto);
     }
     @PutMapping(value = "/{id}")
-    public ResponseEntity<ProprietarioDto> update(@PathVariable Long id,@RequestBody @Valid ProprietarioUpdateDto dto){
-        ProprietarioDto newDto= proprietarioService.update(id,dto);
+    public ResponseEntity<UserDto> update(@PathVariable Long id, @RequestBody @Valid UserUpdateDto dto){
+        UserDto newDto= userService.update(id,dto);
         return ResponseEntity.ok().body(newDto);
     }
     @DeleteMapping(value = "/{id}")
     public ResponseEntity<Void> delete(@PathVariable Long id){
-        proprietarioService.delete(id);
+        userService.delete(id);
         return ResponseEntity.noContent().build();
     }
 }

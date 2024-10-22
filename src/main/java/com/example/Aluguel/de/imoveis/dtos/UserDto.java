@@ -1,18 +1,16 @@
 package com.example.Aluguel.de.imoveis.dtos;
 
 import com.example.Aluguel.de.imoveis.domains.Imovel;
-import com.example.Aluguel.de.imoveis.domains.Proprietario;
+import com.example.Aluguel.de.imoveis.domains.User;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import org.hibernate.validator.constraints.br.CPF;
-import org.springframework.beans.BeanUtils;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
-import java.util.stream.Collectors;
 
-public class ProprietarioDto {
+public class UserDto {
     private Long Id;
     @NotBlank(message = "required field")
     private String name;
@@ -21,17 +19,17 @@ public class ProprietarioDto {
     @CPF(message = "send a valid cpf")
     private String cpf;
     private List<ImovelDto> imoveis= new ArrayList<ImovelDto>();
-    public ProprietarioDto(){
+    public UserDto(){
     };
 
 
-    public ProprietarioDto(Proprietario proprietario) {
-        this.Id = proprietario.getId();
-        this.name = proprietario.getName();
-        this.email = proprietario.getEmail();
-        this.cpf = proprietario.getCpf();
+    public UserDto(User user) {
+        this.Id = user.getId();
+        this.name = user.getName();
+        this.email = user.getEmail();
+        this.cpf = user.getCpf();
     }
-    public ProprietarioDto(Proprietario entity, Set<Imovel> imoveis) {
+    public UserDto(User entity, Set<Imovel> imoveis) {
         this(entity);
         imoveis.forEach(imo -> this.imoveis.add(new ImovelDto(imo)));
     }

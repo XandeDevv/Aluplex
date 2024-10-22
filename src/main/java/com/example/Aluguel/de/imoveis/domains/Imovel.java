@@ -5,7 +5,7 @@ import jakarta.persistence.*;
 import java.util.Objects;
 
 @Entity
-@Table(name = "tb_imovel")
+@Table(name = "tb_imoveis")
 public class Imovel {
     @jakarta.persistence.Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -15,16 +15,16 @@ public class Imovel {
     private String fotos;
     @ManyToOne
     @JoinColumn(name = "proprietario_id")
-    private Proprietario proprietario;
+    private User user;
 
     public Imovel(){
     };
 
-    public Imovel(Long id,String endereco, String descricao, String fotos, Proprietario proprietario) {
+    public Imovel(Long id,String endereco, String descricao, String fotos, User user) {
         Id = id;
         this.descricao = descricao;
         this.fotos = fotos;
-        this.proprietario = proprietario;
+        this.user = user;
         this.endereco=endereco;
     }
 
@@ -48,8 +48,8 @@ public class Imovel {
         this.endereco = endereco;
     }
 
-    public Proprietario getProprietario() {
-        return proprietario;
+    public User getProprietario() {
+        return user;
     }
 
     public Long getId() {

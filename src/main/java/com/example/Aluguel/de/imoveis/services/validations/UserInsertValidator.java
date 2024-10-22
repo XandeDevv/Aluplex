@@ -5,31 +5,31 @@ import java.util.List;
 
 
 import com.example.Aluguel.de.imoveis.controllers.exceptions.FieldMessage;
-import com.example.Aluguel.de.imoveis.domains.Proprietario;
-import com.example.Aluguel.de.imoveis.dtos.ProprietarioInsertDto;
-import com.example.Aluguel.de.imoveis.repositories.ProprietarioRepository;
+import com.example.Aluguel.de.imoveis.domains.User;
+import com.example.Aluguel.de.imoveis.dtos.UserInsertDto;
+import com.example.Aluguel.de.imoveis.repositories.UserRepository;
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
 import org.springframework.beans.factory.annotation.Autowired;
 
 
 
-public class UserInsertValidator implements ConstraintValidator<UserInsertValid, ProprietarioInsertDto> {
+public class UserInsertValidator implements ConstraintValidator<UserInsertValid, UserInsertDto> {
 
     @Autowired
-    private ProprietarioRepository proprietarioRepository;
+    private UserRepository userRepository;
     @Override
     public void initialize(UserInsertValid ann) {
     }
 
     @Override
-    public boolean isValid(ProprietarioInsertDto dto, ConstraintValidatorContext context) {
+    public boolean isValid(UserInsertDto dto, ConstraintValidatorContext context) {
 
         List<FieldMessage> list = new ArrayList<>();
-        Proprietario proprietario = proprietarioRepository.findByEmail(dto.getEmail());
+        User user = userRepository.findByEmail(dto.getEmail());
 
         // Coloque aqui seus testes de validação, acrescentando objetos FieldMessage à lista
-        if (proprietario!=null){
+        if (user !=null){
             list.add(new FieldMessage("email","email ja existe"));
         }
 

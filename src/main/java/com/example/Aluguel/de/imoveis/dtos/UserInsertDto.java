@@ -4,9 +4,9 @@ import com.example.Aluguel.de.imoveis.services.validations.UserInsertValid;
 
 
 @UserInsertValid
-public class ProprietarioInsertDto extends ProprietarioDto{
+public class UserInsertDto extends UserDto {
     private String password;
-    public ProprietarioInsertDto(){
+    public UserInsertDto(){
         super();
     }
 

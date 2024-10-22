@@ -5,23 +5,28 @@ import jakarta.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 
 @Entity
-@Table(name = "tb_proprietario")
-public class Proprietario {
+@Table(name = "tb_users")
+public class User {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long Id;
     private String name;
     private String email;
     private String cpf;
     private String password;
-    @OneToMany(mappedBy = "proprietario",cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @ManyToMany(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
+    @JoinTable(name = "tb_users_roles",joinColumns = @JoinColumn(name = "user_id"),
+    inverseJoinColumns = @JoinColumn(name = "role_id"))
+    Set<Role> roles;
+    @OneToMany(mappedBy = "user",cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<Imovel> imoveis= new ArrayList<>();
 
-    public Proprietario(){
+    public User(){
     };
 
-    public Proprietario(Long id, String name, String email, String cpf,String password) {
+    public User(Long id, String name, String email, String cpf, String password) {
         Id = id;
         this.name = name;
         this.email = email;
@@ -32,7 +37,7 @@ public class Proprietario {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof Proprietario that)) return false;
+        if (!(o instanceof User that)) return false;
         return Objects.equals(Id, that.Id);
     }
 
