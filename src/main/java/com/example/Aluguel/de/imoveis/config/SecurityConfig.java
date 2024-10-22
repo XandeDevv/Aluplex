@@ -25,7 +25,7 @@ public class SecurityConfig {
     @Value("${jwt.secret}")
     private String jwtSecret;
     @Bean
-    private SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception{
+    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception{
         http.
                 authorizeHttpRequests(authorize-> authorize.anyRequest().authenticated())
                 .csrf(csrf->csrf.disable())

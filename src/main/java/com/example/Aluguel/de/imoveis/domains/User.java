@@ -1,6 +1,8 @@
 package com.example.Aluguel.de.imoveis.domains;
 
+import com.example.Aluguel.de.imoveis.dtos.LoginRequest;
 import jakarta.persistence.*;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -88,5 +90,8 @@ public class User {
 
     public void setCpf(String cpf) {
         this.cpf = cpf;
+    }
+    public Boolean IsLoginCorrect(LoginRequest loginRequest, PasswordEncoder passwordEncoder){
+        return passwordEncoder.matches(loginRequest.password(),this.password);
     }
 }
