@@ -47,17 +47,14 @@ public class TokenController {
         var now = Instant.now();
         var expiresIn = 300L;
 
-        var scopes = user.getRoles()
-                .stream()
-                .map(Role::getAuthority)
-                .collect(Collectors.joining(" "));
+
 
         var claims = JwtClaimsSet.builder()
                 .issuer("mybackend")
                 .subject(user.getId().toString())
                 .issuedAt(now)
                 .expiresAt(now.plusSeconds(expiresIn))
-                .claim("scope", scopes)
+
                 .build();
 
         var jwtValue = jwtEncoder.encode(JwtEncoderParameters.from(claims)).getTokenValue();
