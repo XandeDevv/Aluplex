@@ -2,6 +2,7 @@ package com.example.Aluguel.de.imoveis.dtos;
 
 import com.example.Aluguel.de.imoveis.domains.Imovel;
 import com.example.Aluguel.de.imoveis.domains.User;
+import com.example.Aluguel.de.imoveis.domains.UserRole;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import org.hibernate.validator.constraints.br.CPF;
@@ -18,6 +19,7 @@ public class UserDto {
     private String email;
     @CPF(message = "send a valid cpf")
     private String cpf;
+    private UserRole role;
     private List<ImovelDto> imoveis= new ArrayList<ImovelDto>();
     public UserDto(){
     };
@@ -28,6 +30,7 @@ public class UserDto {
         this.name = user.getName();
         this.email = user.getEmail();
         this.cpf = user.getCpf();
+        this.role= user.getRole();
     }
     public UserDto(User entity, Set<Imovel> imoveis) {
         this(entity);
@@ -64,5 +67,13 @@ public class UserDto {
 
     public void setCpf(String cpf) {
         this.cpf = cpf;
+    }
+
+    public UserRole getRole() {
+        return role;
+    }
+
+    public void setRole(UserRole role) {
+        this.role = role;
     }
 }

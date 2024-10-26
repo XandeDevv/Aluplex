@@ -5,12 +5,15 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.Customizer;
+import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.jwt.JwtDecoder;
 import org.springframework.security.oauth2.jwt.JwtEncoder;
 import org.springframework.security.oauth2.jwt.NimbusJwtDecoder;
@@ -19,6 +22,7 @@ import org.springframework.security.web.SecurityFilterChain;
 
 import javax.crypto.SecretKey;
 import javax.crypto.spec.SecretKeySpec;
+import java.nio.charset.StandardCharsets;
 
 @Configuration
 @EnableWebSecurity
@@ -27,31 +31,23 @@ public class SecurityConfig {
     private String jwtSecret;
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception{
-        http.
-                authorizeHttpRequests(authorize-> authorize
-                        .requestMatchers(HttpMethod.POST,"/login")
-                        .permitAll()
-                        .anyRequest().authenticated())
+        return http
                 .csrf(csrf->csrf.disable())
-                .oauth2ResourceServer(oauth->oauth.jwt(Customizer.withDefaults()))
-                .sessionManagement(session->session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
-
-        return http.build();
+                .sessionManagement(session->session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+                .authorizeHttpRequests(authorize->authorize
+                        .requestMatchers(HttpMethod.POST, "/auth/login").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/auth/register").permitAll()
+                        .requestMatchers(HttpMethod.POST,"/user").hasRole("ADMIN")
+                        .anyRequest().authenticated())
+                .build();
     }
     @Bean
-    public BCryptPasswordEncoder passwordEncoder(){
+    public AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration) throws Exception {
+        return authenticationConfiguration.getAuthenticationManager();
+    }
+
+    @Bean
+    public PasswordEncoder passwordEncoder(){
         return new BCryptPasswordEncoder();
     }
-    @Bean
-    public JwtDecoder jwtDecoder() {
-        SecretKey key = new SecretKeySpec(jwtSecret.getBytes(), "HmacSHA256");
-        return NimbusJwtDecoder.withSecretKey(key).build();
-    }
-
-    @Bean
-    public JwtEncoder jwtEncoder() {
-        SecretKey key = new SecretKeySpec(jwtSecret.getBytes(), "HmacSHA256");
-        return new NimbusJwtEncoder(new ImmutableSecret<>(key));
-    }
-
 }

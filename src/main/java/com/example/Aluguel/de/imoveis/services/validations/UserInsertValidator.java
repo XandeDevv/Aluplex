@@ -8,6 +8,7 @@ import com.example.Aluguel.de.imoveis.controllers.exceptions.FieldMessage;
 import com.example.Aluguel.de.imoveis.domains.User;
 import com.example.Aluguel.de.imoveis.dtos.UserInsertDto;
 import com.example.Aluguel.de.imoveis.repositories.UserRepository;
+import com.example.Aluguel.de.imoveis.services.exceptions.ControllerNotFoundException;
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +27,7 @@ public class UserInsertValidator implements ConstraintValidator<UserInsertValid,
     public boolean isValid(UserInsertDto dto, ConstraintValidatorContext context) {
 
         List<FieldMessage> list = new ArrayList<>();
-        User user = userRepository.findByEmail(dto.getEmail());
+        User user = (User) userRepository.findByEmail(dto.getEmail());
 
         // Coloque aqui seus testes de validação, acrescentando objetos FieldMessage à lista
         if (user !=null){

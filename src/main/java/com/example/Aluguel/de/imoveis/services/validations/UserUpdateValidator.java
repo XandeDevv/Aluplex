@@ -5,6 +5,7 @@ import com.example.Aluguel.de.imoveis.domains.User;
 import com.example.Aluguel.de.imoveis.dtos.UserUpdateDto;
 import com.example.Aluguel.de.imoveis.repositories.UserRepository;
 
+import com.example.Aluguel.de.imoveis.services.exceptions.ControllerNotFoundException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
@@ -32,7 +33,7 @@ public class UserUpdateValidator implements ConstraintValidator<UserUpdateValid,
         long userId = Long.parseLong(uriVars.get("id"));
 
         List<FieldMessage> list = new ArrayList<>();
-        User user = userRepository.findByEmail(dto.getEmail());
+        User user = (User) userRepository.findByEmail(dto.getEmail());
 
         // Coloque aqui seus testes de validação, acrescentando objetos FieldMessage à lista
         if (user !=null && userId!= user.getId()){
