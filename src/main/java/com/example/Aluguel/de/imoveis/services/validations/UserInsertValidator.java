@@ -31,7 +31,7 @@ public class UserInsertValidator implements ConstraintValidator<UserInsertValid,
 
         // Coloque aqui seus testes de validação, acrescentando objetos FieldMessage à lista
         if (user !=null){
-            list.add(new FieldMessage("email","email ja existe"));
+            list.add(new FieldMessage("email","Email ja existe"));
         }
 
         for (FieldMessage e : list) {

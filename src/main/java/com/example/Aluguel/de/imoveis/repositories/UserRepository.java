@@ -15,5 +15,6 @@ public interface UserRepository extends JpaRepository<User,Long> {
     @Query("SELECT obj FROM User obj LEFT JOIN FETCH obj.imoveis")
     Page<User> findAllWithImoveis(Pageable pageable);
     UserDetails findByEmail(String email);
+    User findByCpf(String cpf);
 
 }
