@@ -1,0 +1,88 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; /* Faz o corpo ocupar toda a altura da janela */
+    margin: 0; /* Remove margens do body */
+}
+
+.container {
+    width: 400px; /* Largura maior para se aproximar do estilo do ChatGPT */
+    padding: 40px; /* Mais espaço interno */
+    background: white;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    border-radius: 8px; /* Bordas mais arredondadas */
+    text-align: center; /* Centraliza o texto */
+}
+
+h1 {
+    margin-bottom: 20px; /* Espaçamento entre o título e o formulário */
+    color: #333; /* Cor do texto do título */
+}
+
+label {
+    display: block; /* Faz os rótulos ocuparem toda a linha */
+    margin: 10px 0 5px; /* Margem para espaçamento */
+    color: #555; /* Cor do texto dos rótulos */
+}
+
+input[type="email"],
+input[type="password"] {
+    width: 100%; /* Faz os inputs ocuparem toda a largura da container */
+    padding: 10px; /* Espaçamento interno */
+    margin-bottom: 20px; /* Espaçamento entre os inputs */
+    border: 1px solid #ccc; /* Borda dos inputs */
+    border-radius: 5px; /* Bordas arredondadas dos inputs */
+}
+
+button {
+    background-color: #4CAF50; /* Cor do botão */
+    color: white; /* Cor do texto do botão */
+    border: none; /* Remove a borda padrão */
+    padding: 10px; /* Espaçamento interno do botão */
+    width: 100%; /* Faz o botão ocupar toda a largura da container */
+    border-radius: 5px; /* Bordas arredondadas do botão */
+    cursor: pointer; /* Muda o cursor ao passar por cima */
+    font-size: 16px; /* Aumenta o tamanho da fonte do botão */
+}
+
+button:hover {
+    background-color: #45a049; /* Cor do botão ao passar o mouse */
+}
+
+.modal {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.modal-content {
+    background-color: white;
+    padding: 20px;
+    border-radius: 5px;
+    text-align: center;
+}
+
+.error-box {
+    display: none; /* Por padrão, ela não é exibida */
+    background-color: #f8d7da;
+    color: #721c24;
+    border: 1px solid #f5c6cb;
+    padding: 10px;
+    margin: 20px 0;
+    border-radius: 5px;
+    text-align: center;
+    font-size: 14px;
+}
+
+.hidden {
+    display: none;
+}
