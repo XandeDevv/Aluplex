@@ -22,7 +22,11 @@ public class User implements UserDetails {
     private UserRole role;
     @OneToMany(mappedBy = "user",cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<Imovel> imoveis= new ArrayList<>();
+    @OneToMany(mappedBy = "proprietario", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private List<Contrato> contratosProprietario = new ArrayList<>();
 
+    @OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<Contrato> contratosCliente = new ArrayList<>();
     public User(){
     };
 
@@ -54,6 +58,12 @@ public class User implements UserDetails {
     public void addImovel(Imovel imovel){
         this.imoveis.add(imovel);
     }
+    public void addContratoCliente(Contrato contrato){
+        this.contratosCliente.add(contrato);
+    }
+    public void addContratoProprietario(Contrato contrato){
+        this.contratosProprietario.add(contrato);
+    }
     public boolean hasRole(UserRole roleName){
         if (roleName == this.role){
             return true;
@@ -68,11 +78,11 @@ public class User implements UserDetails {
             return List.of(
                     new SimpleGrantedAuthority("ROLE_ADMIN"),
                     new SimpleGrantedAuthority("ROLE_USER"),
-                    new SimpleGrantedAuthority("ROLE_OWNER")
+                    new SimpleGrantedAuthority("ROLE_PROPRIETARIO")
             );
         } else if (this.role == UserRole.OWNER) {
             return List.of(
-                    new SimpleGrantedAuthority("ROLE_OWNER"),
+                    new SimpleGrantedAuthority("ROLE_PROPRIETARIO"),
                     new SimpleGrantedAuthority("ROLE_USER")
             );
         } else {

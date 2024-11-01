@@ -13,7 +13,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
-public class OwnerService {
+public class ProprietarioService {
     @Autowired
     ImovelRepository imovelRepository;
     @Autowired
@@ -24,7 +24,6 @@ public class OwnerService {
     public void addImovel(ImovelDto imovelDto) {
         Imovel imovel = new Imovel();
         imovel = dtoToEntity(imovelDto, imovel);
-
         User user = authorizationService.authenticated();
         user.addImovel(imovel);
         imovel.setUser(user);
