@@ -27,13 +27,15 @@ public class Contrato {
     public Contrato(){
     }
 
-    public Contrato(Long id,Instant dataDeInicio, Instant dataDeTermino, Duration duracao, BigDecimal valor, ContratoStatus status) {
-        this.id=id;
+    public Contrato(Long id, Instant dataDeInicio, Instant dataDeTermino, Duration duracao, BigDecimal valor, ContratoStatus status, User cliente, User proprietario) {
+        this.id = id;
         this.dataDeInicio = dataDeInicio;
         this.dataDeTermino = dataDeTermino;
         this.duracao = duracao;
         this.valor = valor;
         this.status = status;
+        this.cliente = cliente;
+        this.proprietario = proprietario;
     }
 
     @Override
@@ -94,6 +96,22 @@ public class Contrato {
 
     public void setStatus(ContratoStatus status) {
         this.status = status;
+    }
+
+    public User getCliente() {
+        return cliente;
+    }
+
+    public void setCliente(User cliente) {
+        this.cliente = cliente;
+    }
+
+    public User getProprietario() {
+        return proprietario;
+    }
+
+    public void setProprietario(User proprietario) {
+        this.proprietario = proprietario;
     }
 }
 

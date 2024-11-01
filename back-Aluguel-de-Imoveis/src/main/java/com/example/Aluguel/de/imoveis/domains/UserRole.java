@@ -2,7 +2,7 @@ package com.example.Aluguel.de.imoveis.domains;
 
 public enum UserRole {
     ADMIN("admin"),
-    OWNER("owner"),
+    PROPRIETARIO("proprietario"),
     USER("user");
 
     private String role;
