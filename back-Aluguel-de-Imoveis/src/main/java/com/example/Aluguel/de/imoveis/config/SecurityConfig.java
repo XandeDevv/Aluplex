@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.env.Environment;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 
@@ -19,6 +20,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
+import java.util.Arrays;
 import java.util.List;
 
 
@@ -27,9 +29,15 @@ import java.util.List;
 public class SecurityConfig {
     @Autowired
     private SecurityFilter securityFilter;
+    @Autowired
+    private Environment env;
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+        // H2
+        if (Arrays.asList(env.getActiveProfiles()).contains("test")) {
+            http.headers().frameOptions().disable();
+        }
         return http
                 .csrf(csrf -> csrf.disable()) // Desabilita CSRF
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)) // Define a política de sessão como stateless
@@ -46,7 +54,9 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.POST, "/auth/insert").permitAll()
                         .requestMatchers(HttpMethod.GET, "/login").permitAll() // Permitir acesso à página de login
                         .requestMatchers(HttpMethod.GET, "/user").permitAll() // Ajuste para o endpoint correto
-                        .requestMatchers(HttpMethod.GET, "/frontInsert.html").permitAll() // Ajuste para o endpoint correto
+                        .requestMatchers(HttpMethod.GET, "/owner/addImovel").permitAll() // Ajuste para o endpoint correto
+                        .requestMatchers(HttpMethod.GET, "/frontInsert.html").permitAll()
+                        .requestMatchers("/h2-console/**").permitAll()// Ajuste para o endpoint correto
                         .anyRequest().authenticated()) // Qualquer outra requisição precisa de autenticação
                 .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class) // Adiciona seu filtro de segurança
                 .build();

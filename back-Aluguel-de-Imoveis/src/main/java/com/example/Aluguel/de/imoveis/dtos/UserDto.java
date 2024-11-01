@@ -13,11 +13,11 @@ import java.util.Set;
 
 public class UserDto {
     private Long Id;
-    @NotBlank(message = "required field")
+    @NotBlank(message = "Required field")
     private String name;
-    @Email(message = "invalid email")
+    @Email(message = "Invalid email")
     private String email;
-    @CPF(message = "send a valid cpf")
+    @CPF(message = "Send a valid cpf")
     private String cpf;
     private UserRole role;
     private List<ImovelDto> imoveis= new ArrayList<ImovelDto>();

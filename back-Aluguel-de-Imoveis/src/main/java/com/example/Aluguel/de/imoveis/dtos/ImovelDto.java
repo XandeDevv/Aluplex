@@ -7,6 +7,7 @@ import org.springframework.beans.BeanUtils;
 public class ImovelDto {
     private Long Id;
     private String descricao;
+    private String endereco;
     private String fotos;
     private User user;
     public ImovelDto(){
@@ -15,11 +16,20 @@ public class ImovelDto {
         BeanUtils.copyProperties(imovel,this);
     }
 
-    public ImovelDto(Long id, String descricao, String fotos, User user) {
+    public ImovelDto(Long id, String descricao,String endereco, String fotos, User user) {
         Id = id;
         this.descricao = descricao;
         this.fotos = fotos;
         this.user = user;
+        this.endereco=endereco;
+    }
+
+    public String getEndereco() {
+        return endereco;
+    }
+
+    public void setEndereco(String endereco) {
+        this.endereco = endereco;
     }
 
     public Long getId() {

@@ -51,7 +51,16 @@ public class User implements UserDetails {
         return imoveis;
     }
 
-
+    public void addImovel(Imovel imovel){
+        this.imoveis.add(imovel);
+    }
+    public boolean hasRole(UserRole roleName){
+        if (roleName == this.role){
+            return true;
+        }else {
+            return false;
+        }
+    }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

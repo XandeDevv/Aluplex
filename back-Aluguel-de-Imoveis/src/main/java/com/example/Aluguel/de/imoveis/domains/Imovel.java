@@ -18,8 +18,7 @@ public class Imovel {
     private User user;
 
     public Imovel(){
-    };
-
+    }
     public Imovel(Long id,String endereco, String descricao, String fotos, User user) {
         Id = id;
         this.descricao = descricao;
@@ -38,6 +37,14 @@ public class Imovel {
     @Override
     public int hashCode() {
         return Objects.hash(Id);
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public String getEndereco() {
