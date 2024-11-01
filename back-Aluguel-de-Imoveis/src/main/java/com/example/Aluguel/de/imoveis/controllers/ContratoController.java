@@ -1,6 +1,7 @@
 package com.example.Aluguel.de.imoveis.controllers;
 
 
+import com.example.Aluguel.de.imoveis.dtos.ContratoDto;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
