@@ -19,6 +19,7 @@ public class User implements UserDetails {
     private String email;
     private String cpf;
     private String password;
+    @Enumerated(EnumType.STRING)
     private UserRole role;
     @OneToMany(mappedBy = "user",cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<Imovel> imoveis= new ArrayList<>();
@@ -64,12 +65,8 @@ public class User implements UserDetails {
     public void addContratoProprietario(Contrato contrato){
         this.contratosProprietario.add(contrato);
     }
-    public boolean hasRole(UserRole roleName){
-        if (roleName == this.role){
-            return true;
-        }else {
-            return false;
-        }
+    public boolean hasRole(UserRole role) {
+        return this.role != null && this.role.equals(role);
     }
 
     @Override
@@ -80,7 +77,7 @@ public class User implements UserDetails {
                     new SimpleGrantedAuthority("ROLE_USER"),
                     new SimpleGrantedAuthority("ROLE_PROPRIETARIO")
             );
-        } else if (this.role == UserRole.OWNER) {
+        } else if (this.role == UserRole.PROPRIETARIO) {
             return List.of(
                     new SimpleGrantedAuthority("ROLE_PROPRIETARIO"),
                     new SimpleGrantedAuthority("ROLE_USER")
@@ -162,7 +159,5 @@ public class User implements UserDetails {
     public void setCpf(String cpf) {
         this.cpf = cpf;
     }
-    public Boolean IsLoginCorrect(LoginRequest loginRequest, BCryptPasswordEncoder passwordEncoder){
-        return passwordEncoder.matches(loginRequest.password(),this.password);
-    }
+
 }

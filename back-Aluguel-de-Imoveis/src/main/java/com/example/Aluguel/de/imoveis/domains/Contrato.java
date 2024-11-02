@@ -16,6 +16,7 @@ public class Contrato {
     private Instant dataDeTermino;
     private Duration duracao;
     private BigDecimal valor;
+    @Enumerated(EnumType.STRING)
     private ContratoStatus status;
     @ManyToOne
     @JoinColumn(name = "cliente_id")
