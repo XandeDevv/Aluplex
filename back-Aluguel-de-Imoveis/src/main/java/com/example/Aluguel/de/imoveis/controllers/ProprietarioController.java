@@ -10,7 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("owner")
+@RequestMapping("proprietario")
 @CrossOrigin(origins = "http://127.0.0.1:5500")
 public class ProprietarioController {
     @Autowired

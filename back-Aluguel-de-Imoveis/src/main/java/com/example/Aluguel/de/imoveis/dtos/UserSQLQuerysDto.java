@@ -1,44 +1,33 @@
 package com.example.Aluguel.de.imoveis.dtos;
 
-import com.example.Aluguel.de.imoveis.domains.Contrato;
-import com.example.Aluguel.de.imoveis.domains.Imovel;
 import com.example.Aluguel.de.imoveis.domains.User;
 import com.example.Aluguel.de.imoveis.domains.UserRole;
-import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
-import org.hibernate.validator.constraints.br.CPF;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Set;
-
-public class UserDto {
+public class UserSQLQuerysDto {
     private Long Id;
-    @NotBlank(message = "Required field")
     private String name;
-    @Email(message = "Invalid email")
     private String email;
-    @CPF(message = "Send a valid cpf")
     private String cpf;
-    @NotNull(message = "Required field")
     private UserRole role;
-    private List<ImovelDto> imoveis= new ArrayList<ImovelDto>();
-    private List<Contrato> contratosCliente = new ArrayList<>();
-    public UserDto(){
+
+    public UserSQLQuerysDto(){
     };
 
 
-    public UserDto(User user) {
+    public UserSQLQuerysDto(User user) {
         this.Id = user.getId();
         this.name = user.getName();
         this.email = user.getEmail();
         this.cpf = user.getCpf();
         this.role= user.getRole();
     }
-    public UserDto(User entity, Set<Imovel> imoveis) {
-        this(entity);
-        imoveis.forEach(imo -> this.imoveis.add(new ImovelDto(imo)));
+
+    public UserSQLQuerysDto(Long id, String name, String email, String cpf, UserRole role) {
+        Id = id;
+        this.name = name;
+        this.email = email;
+        this.cpf = cpf;
+        this.role = role;
     }
 
     public Long getId() {

@@ -1,22 +1,44 @@
 package com.example.Aluguel.de.imoveis.dtos;
 
+import com.example.Aluguel.de.imoveis.domains.User;
+
 public class ImovelResponseDto {
     private Long id;
+    private String name;
     private String descricao;
     private String endereco;
     private String fotos;
+    private UserSQLQuerysDto user;
     public  ImovelResponseDto(){
     }
 
 
-    public ImovelResponseDto(Long id, String descricao, String endereco, String fotos) {
+    public ImovelResponseDto(Long id, String name, String descricao, String endereco, String fotos, User user) {
         this.id = id;
+        this.name=name;
         this.descricao = descricao;
         this.endereco = endereco;
         this.fotos = fotos;
+        this.user=new UserSQLQuerysDto(user);
     }
 
     public ImovelResponseDto(ImovelResponseDto imovelResponseDto) {
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public UserSQLQuerysDto getUser() {
+        return user;
+    }
+
+    public void setUser(UserSQLQuerysDto user) {
+        this.user = user;
     }
 
     public Long getId() {

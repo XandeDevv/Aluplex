@@ -6,22 +6,32 @@ import org.springframework.beans.BeanUtils;
 
 public class ImovelDto {
     private Long Id;
+    private String name;
     private String descricao;
     private String endereco;
     private String fotos;
-    private User user;
+    private User proprietario;
     public ImovelDto(){
     };
     public ImovelDto(Imovel imovel){
         BeanUtils.copyProperties(imovel,this);
     }
 
-    public ImovelDto(Long id, String descricao,String endereco, String fotos, User user) {
+    public ImovelDto(Long id, String name, String descricao,String endereco, String fotos, User proprietario) {
         Id = id;
         this.descricao = descricao;
         this.fotos = fotos;
-        this.user = user;
+        this.proprietario = proprietario;
         this.endereco=endereco;
+        this.name=name;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getEndereco() {
@@ -57,10 +67,10 @@ public class ImovelDto {
     }
 
     public User getProprietario() {
-        return user;
+        return proprietario;
     }
 
     public void setProprietario(User user) {
-        this.user = user;
+        this.proprietario = user;
     }
 }

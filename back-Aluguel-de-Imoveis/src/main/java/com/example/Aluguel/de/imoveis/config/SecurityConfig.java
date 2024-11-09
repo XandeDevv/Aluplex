@@ -54,9 +54,10 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.POST, "/auth/insert").permitAll()
                         .requestMatchers(HttpMethod.GET, "/login").permitAll() // Permitir acesso à página de login
                         .requestMatchers(HttpMethod.GET, "/user").permitAll() // Ajuste para o endpoint correto
-                        .requestMatchers(HttpMethod.GET, "/contrato/criar").permitAll() // Ajuste para o endpoint correto
+                        .requestMatchers(HttpMethod.GET, "/contrato/*").permitAll() // Ajuste para o endpoint correto
                         .requestMatchers(HttpMethod.GET, "/owner/addImovel").permitAll() // Ajuste para o endpoint correto
                         .requestMatchers(HttpMethod.GET, "/frontInsert.html").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/home.html").permitAll()
                         .requestMatchers("/h2-console/**").permitAll()// Ajuste para o endpoint correto
                         .anyRequest().authenticated()) // Qualquer outra requisição precisa de autenticação
                 .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class) // Adiciona seu filtro de segurança

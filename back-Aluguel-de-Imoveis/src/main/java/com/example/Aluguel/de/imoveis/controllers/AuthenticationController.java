@@ -7,6 +7,7 @@ import com.example.Aluguel.de.imoveis.dtos.UserDto;
 import com.example.Aluguel.de.imoveis.dtos.UserInsertDto;
 import com.example.Aluguel.de.imoveis.services.AuthorizationService;
 
+import com.example.Aluguel.de.imoveis.services.exceptions.CustomUnauthorizedException;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -28,7 +29,7 @@ public class AuthenticationController {
         try {
             LoginResponse response = authorizationService.login(body);
             return ResponseEntity.ok(response);
-        } catch (RuntimeException e) {
+        } catch (CustomUnauthorizedException e) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Credenciais incorretas");
         }
     }

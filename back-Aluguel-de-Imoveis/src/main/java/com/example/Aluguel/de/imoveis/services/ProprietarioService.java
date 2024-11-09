@@ -2,10 +2,12 @@ package com.example.Aluguel.de.imoveis.services;
 
 import com.example.Aluguel.de.imoveis.domains.Imovel;
 import com.example.Aluguel.de.imoveis.domains.User;
+import com.example.Aluguel.de.imoveis.domains.UserRole;
 import com.example.Aluguel.de.imoveis.dtos.ImovelDto;
 import com.example.Aluguel.de.imoveis.dtos.ImovelResponseDto;
 import com.example.Aluguel.de.imoveis.repositories.ImovelRepository;
 import com.example.Aluguel.de.imoveis.repositories.UserRepository;
+import com.example.Aluguel.de.imoveis.services.exceptions.ControllerNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -25,6 +27,9 @@ public class ProprietarioService {
         Imovel imovel = new Imovel();
         imovel = dtoToEntity(imovelDto, imovel);
         User user = authorizationService.authenticated();
+        if(user.getRole()== UserRole.USER){
+            throw new ControllerNotFoundException("arrumar dps");
+        }
         user.addImovel(imovel);
         imovel.setUser(user);
         imovelRepository.save(imovel);
@@ -36,6 +41,7 @@ public class ProprietarioService {
         return imovelRepository.findImovelByEmail(email, pageable);
     }
     public Imovel dtoToEntity(ImovelDto dto, Imovel obj) {
+        obj.setName(dto.getName());
         obj.setDescricao(dto.getDescricao());
         obj.setEndereco(dto.getEndereco());
         obj.setFotos(dto.getFotos());

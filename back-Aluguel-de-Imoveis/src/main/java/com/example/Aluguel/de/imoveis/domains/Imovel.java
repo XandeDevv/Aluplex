@@ -10,6 +10,7 @@ public class Imovel {
     @jakarta.persistence.Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long Id;
+    private String name;
     private String endereco;
     private String descricao;
     private String fotos;
@@ -19,12 +20,13 @@ public class Imovel {
 
     public Imovel(){
     }
-    public Imovel(Long id,String endereco, String descricao, String fotos, User user) {
+    public Imovel(Long id,String name,String endereco, String descricao, String fotos, User user) {
         Id = id;
         this.descricao = descricao;
         this.fotos = fotos;
         this.user = user;
         this.endereco=endereco;
+        this.name=name;
     }
 
     @Override
@@ -37,6 +39,14 @@ public class Imovel {
     @Override
     public int hashCode() {
         return Objects.hash(Id);
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public User getUser() {
