@@ -14,6 +14,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+
+import java.net.URI;
 
 
 @RestController
@@ -29,7 +32,7 @@ public class AuthenticationController {
         try {
             LoginResponse response = authorizationService.login(body);
             return ResponseEntity.ok(response);
-        } catch (CustomUnauthorizedException e) {
+        } catch (RuntimeException e) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Credenciais incorretas");
         }
     }
@@ -37,7 +40,11 @@ public class AuthenticationController {
     @PostMapping("/insert")
     public ResponseEntity insert(@RequestBody @Valid UserInsertDto userInsertDto){
         UserDto newDto= authorizationService.insert(userInsertDto);
-        return ResponseEntity.ok().build();
+        URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
+                .path("/{id}")
+                .buildAndExpand(newDto.getId())
+                .toUri();
+        return ResponseEntity.created(uri).body(newDto);
     }
 
 

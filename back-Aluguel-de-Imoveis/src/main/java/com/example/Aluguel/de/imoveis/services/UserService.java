@@ -1,9 +1,12 @@
 package com.example.Aluguel.de.imoveis.services;
 
+import com.example.Aluguel.de.imoveis.domains.Imovel;
 import com.example.Aluguel.de.imoveis.domains.User;
+import com.example.Aluguel.de.imoveis.dtos.ImovelDto;
 import com.example.Aluguel.de.imoveis.dtos.UserDto;
 import com.example.Aluguel.de.imoveis.dtos.UserInsertDto;
 import com.example.Aluguel.de.imoveis.dtos.UserUpdateDto;
+import com.example.Aluguel.de.imoveis.repositories.ImovelRepository;
 import com.example.Aluguel.de.imoveis.repositories.UserRepository;
 import com.example.Aluguel.de.imoveis.services.exceptions.ControllerNotFoundException;
 import com.example.Aluguel.de.imoveis.services.exceptions.DataBaseException;
@@ -21,31 +24,30 @@ import java.util.Optional;
 public class UserService {
     @Autowired
     private UserRepository userRepository;
+    @Autowired
+    private ImovelRepository imovelRepository;
+    @Autowired
+    private AuthorizationService authorizationService;
+
 
     @Transactional
-    public Page<UserDto> findAll(Pageable pageable) {
-        Page<User> page = userRepository.findAllWithImoveis(pageable);
-        return page.map(x -> new UserDto(x));
+    public Page<ImovelDto> buscar(String name,Pageable pageable) {
+        Page<Imovel> page = imovelRepository.findByNameContainingIgnoreCase(name,pageable);
+        return page.map(x -> new ImovelDto(x));
     }
 
     @Transactional
     public UserDto findById(Long id) {
+        authorizationService.selfOrAdmin(id);
         Optional<User> obj = userRepository.findById(id);
         User entity = obj.orElseThrow(() -> new ControllerNotFoundException("Not Found"));
         return new UserDto(entity);
     }
 
     @Transactional
-    public UserDto insert(UserInsertDto dto) {
-        User obj= new User();
-        obj = dtoToEntity(dto,obj);
-        obj = userRepository.save(obj);
-        return new UserDto(obj);
-    }
-
-    @Transactional
     public UserDto update(Long id, UserUpdateDto dto) {
         try {
+            authorizationService.selfOrAdmin(id);
             User obj = userRepository.getReferenceById(id);
             obj= dtoToEntity(dto,obj);
             obj = userRepository.save(obj);
@@ -61,6 +63,7 @@ public class UserService {
             throw new ControllerNotFoundException("id nao encontrado");
         }
         try {
+            authorizationService.selfOrAdmin(id);
             userRepository.deleteById(id);
         } catch (DataIntegrityViolationException e) {
             throw new DataBaseException("Cannot delete customer due to existing references");

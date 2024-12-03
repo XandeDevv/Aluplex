@@ -5,6 +5,7 @@ import com.example.Aluguel.de.imoveis.domains.User;
 import com.example.Aluguel.de.imoveis.domains.UserRole;
 import com.example.Aluguel.de.imoveis.dtos.ImovelDto;
 import com.example.Aluguel.de.imoveis.dtos.ImovelResponseDto;
+import com.example.Aluguel.de.imoveis.dtos.UserDto;
 import com.example.Aluguel.de.imoveis.repositories.ImovelRepository;
 import com.example.Aluguel.de.imoveis.repositories.UserRepository;
 import com.example.Aluguel.de.imoveis.services.exceptions.ControllerNotFoundException;
@@ -35,16 +36,17 @@ public class ProprietarioService {
         imovelRepository.save(imovel);
     }
     @Transactional(readOnly = true)
-    public Page<ImovelResponseDto> findAllImoveis(Pageable pageable) {
+    public Page<ImovelDto> findAllImoveis(Pageable pageable) {
         User user = authorizationService.authenticated();
         String email = user.getEmail();
-        return imovelRepository.findImovelByEmail(email, pageable);
+        Page<Imovel> page= imovelRepository.findImovelByEmail(email, pageable);
+        return page.map(x -> new ImovelDto(x));
     }
     public Imovel dtoToEntity(ImovelDto dto, Imovel obj) {
         obj.setName(dto.getName());
         obj.setDescricao(dto.getDescricao());
+        obj.setPreco(dto.getPreco());
         obj.setEndereco(dto.getEndereco());
-        obj.setFotos(dto.getFotos());
         return obj;
     }
 }

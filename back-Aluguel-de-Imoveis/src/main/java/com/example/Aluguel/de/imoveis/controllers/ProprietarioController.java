@@ -21,8 +21,8 @@ public class ProprietarioController {
         return ResponseEntity.ok().build();
     }
     @GetMapping
-    public ResponseEntity<Page<ImovelResponseDto>> findAllImoveis(Pageable pageable){
-        Page<ImovelResponseDto> list= proprietarioService.findAllImoveis(pageable);
+    public ResponseEntity<Page<ImovelDto>> findAllImoveis(Pageable pageable){
+        Page<ImovelDto> list= proprietarioService.findAllImoveis(pageable);
         return ResponseEntity.ok().body(list);
     }
 }
