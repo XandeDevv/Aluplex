@@ -2,6 +2,7 @@ package com.example.Aluguel.de.imoveis.domains;
 
 import jakarta.persistence.*;
 
+import java.math.BigDecimal;
 import java.util.Objects;
 
 @Entity
@@ -12,18 +13,19 @@ public class Imovel {
     private Long Id;
     private String name;
     private String endereco;
+    private BigDecimal preco;
     private String descricao;
-    private String fotos;
+
     @ManyToOne
     @JoinColumn(name = "proprietario_id")
     private User user;
 
     public Imovel(){
     }
-    public Imovel(Long id,String name,String endereco, String descricao, String fotos, User user) {
+    public Imovel(Long id,String name,String endereco, BigDecimal preco,  String descricao, User user) {
         Id = id;
         this.descricao = descricao;
-        this.fotos = fotos;
+        this.preco= preco;
         this.user = user;
         this.endereco=endereco;
         this.name=name;
@@ -47,6 +49,14 @@ public class Imovel {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public BigDecimal getPreco() {
+        return preco;
+    }
+
+    public void setPreco(BigDecimal preco) {
+        this.preco = preco;
     }
 
     public User getUser() {
@@ -85,11 +95,4 @@ public class Imovel {
         this.descricao = descricao;
     }
 
-    public String getFotos() {
-        return fotos;
-    }
-
-    public void setFotos(String fotos) {
-        this.fotos = fotos;
-    }
 }

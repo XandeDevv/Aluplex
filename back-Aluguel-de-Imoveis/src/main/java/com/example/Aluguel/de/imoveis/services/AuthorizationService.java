@@ -9,6 +9,8 @@ import com.example.Aluguel.de.imoveis.dtos.UserDto;
 import com.example.Aluguel.de.imoveis.dtos.UserInsertDto;
 import com.example.Aluguel.de.imoveis.repositories.UserRepository;
 import com.example.Aluguel.de.imoveis.services.exceptions.ControllerNotFoundException;
+import com.example.Aluguel.de.imoveis.services.exceptions.CustomAccessDeniedException;
+import com.example.Aluguel.de.imoveis.services.exceptions.CustomUnauthorizedException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -46,15 +48,16 @@ public class AuthorizationService implements UserDetailsService {
     public void selfOrAdmin(Long userId){
         User user= authenticated();
         if (!user.getId().equals(userId) && !user.hasRole(UserRole.ADMIN)){
-            throw new ControllerNotFoundException("tratar dps");
+            throw new CustomAccessDeniedException("Voce nao tem permissao para acessar esse recurso");
         }
+
     }
 
     @Transactional
     public LoginResponse login(LoginRequest body) {
         User user = (User) userRepository.findByEmail(body.email());
         if (!passwordEncoder.matches(body.password(), user.getPassword())) {
-            throw new RuntimeException("Invalid credentials");
+            throw new CustomUnauthorizedException("Invalid credentials");
         }
 
         String token = tokenService.generateToken(user);

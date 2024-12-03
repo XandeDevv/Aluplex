@@ -1,29 +1,38 @@
 package com.example.Aluguel.de.imoveis.dtos;
 
 import com.example.Aluguel.de.imoveis.domains.Imovel;
-import com.example.Aluguel.de.imoveis.domains.User;
 import org.springframework.beans.BeanUtils;
+
+import java.math.BigDecimal;
 
 public class ImovelDto {
     private Long Id;
     private String name;
     private String descricao;
+    private BigDecimal preco;
     private String endereco;
-    private String fotos;
-    private User proprietario;
+    private String proprietarioEmail;
     public ImovelDto(){
     };
     public ImovelDto(Imovel imovel){
         BeanUtils.copyProperties(imovel,this);
     }
 
-    public ImovelDto(Long id, String name, String descricao,String endereco, String fotos, User proprietario) {
+    public ImovelDto(Long id, String name, String descricao,BigDecimal preco, String endereco, String proprietarioEmail) {
         Id = id;
         this.descricao = descricao;
-        this.fotos = fotos;
-        this.proprietario = proprietario;
+        this.preco= preco;
+        this.proprietarioEmail = proprietarioEmail;
         this.endereco=endereco;
         this.name=name;
+    }
+
+    public BigDecimal getPreco() {
+        return preco;
+    }
+
+    public void setPreco(BigDecimal preco) {
+        this.preco = preco;
     }
 
     public String getName() {
@@ -58,19 +67,11 @@ public class ImovelDto {
         this.descricao = descricao;
     }
 
-    public String getFotos() {
-        return fotos;
+    public String getProprietarioEmail() {
+        return proprietarioEmail;
     }
 
-    public void setFotos(String fotos) {
-        this.fotos = fotos;
-    }
-
-    public User getProprietario() {
-        return proprietario;
-    }
-
-    public void setProprietario(User user) {
-        this.proprietario = user;
+    public void setProprietarioEmail(String proprietarioEmail) {
+        this.proprietarioEmail = proprietarioEmail;
     }
 }
